@@ -6,7 +6,7 @@ spring:
         name: ShiroJwt
         url: jdbc:mysql://127.0.0.1:3306/shirojwt?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8
         username: root
-        password: root
+        password: 123456
         # 使用Druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
@@ -41,7 +41,7 @@ eureka:
       serviceUrl:
           defaultZone: http://${eureka.instance.hostname}:10101/eureka/
       #是否向注册中心注册服务
-      registerWithEureka: true
+      registerWithEureka: false
      #是否检索服务
       fetchRegistry: false
 
