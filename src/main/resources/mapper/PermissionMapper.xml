@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wang.mapper.PermissionMapper">
-  <resultMap id="BaseResultMap" type="com.wang.model.PermissionDto">
+  <resultMap id="BaseResultMap" type="com.wang.model.entity.Permission">
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="per_code" jdbcType="VARCHAR" property="perCode" />
+    <id column="id" jdbcType="INTEGER" property="id"/>
+    <result column="name" jdbcType="VARCHAR" property="name"/>
+    <result column="per_code" jdbcType="VARCHAR" property="perCode"/>
   </resultMap>
 
-  <select id="findPermissionByRole" resultType="com.wang.model.PermissionDto"
-          parameterType="com.wang.model.RoleDto">
+  <select id="findPermissionByRole" resultType="com.wang.model.entity.Permission"
+    parameterType="com.wang.model.entity.Role">
     SELECT
         p.id as id,
         p.name as name,
@@ -27,5 +28,13 @@
       </if>
     </where>
   </select>
-
+  <select id="selectByUserIdQueryPermission" resultType="java.lang.String">
+    SELECT
+      p.url
+    FROM role r
+           LEFT JOIN role_permission rp on r.id = rp.role_id
+           LEFT JOIN permission p ON p.id = rp.permission_id
+           LEFT JOIN user_role ur ON r.id = ur.role_id
+    WHERE ur.user_id = #{userId}
+  </select>
 </mapper>

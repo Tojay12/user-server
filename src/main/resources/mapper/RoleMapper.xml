@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.wang.mapper.RoleMapper">
-  <resultMap id="BaseResultMap" type="com.wang.model.RoleDto">
+  <resultMap id="BaseResultMap" type="com.wang.model.entity.Role">
     <!--
       WARNING - @mbg.generated
     -->
@@ -9,7 +9,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
   </resultMap>
 
-  <select id="findRoleByUser" resultType="com.wang.model.RoleDto" parameterType="com.wang.model.UserDto">
+  <select id="findRoleByUser" resultType="com.wang.model.entity.Role" parameterType="com.wang.model.entity.User">
     SELECT
       r.id as id,
       r.name as name

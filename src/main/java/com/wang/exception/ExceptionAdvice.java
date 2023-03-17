@@ -1,11 +1,11 @@
-package com.wang.config;
+package com.wang.exception;
 
-import com.wang.exception.CustomException;
-import com.wang.exception.CustomUnauthorizedException;
 import com.wang.model.common.ResponseBean;
-import org.apache.shiro.ShiroException;
-import org.apache.shiro.authz.UnauthenticatedException;
-import org.apache.shiro.authz.UnauthorizedException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
@@ -14,12 +14,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 异常控制处理器
@@ -34,8 +28,8 @@ public class ExceptionAdvice {
      * @return
      */
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(ShiroException.class)
-    public ResponseBean handle401(ShiroException e) {
+    @ExceptionHandler(CustomUnauthorizedException.class)
+    public ResponseBean handle401(CustomUnauthorizedException e) {
         return new ResponseBean(HttpStatus.UNAUTHORIZED.value(), "无权访问(Unauthorized):" + e.getMessage(), null);
     }
 
@@ -46,31 +40,9 @@ public class ExceptionAdvice {
      * @return
      */
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(UnauthorizedException.class)
-    public ResponseBean handle401(UnauthorizedException e) {
+    @ExceptionHandler(CustomException.class)
+    public ResponseBean handle401(CustomException e) {
         return new ResponseBean(HttpStatus.UNAUTHORIZED.value(), "无权访问(Unauthorized):当前Subject没有此请求所需权限(" + e.getMessage() + ")", null);
-    }
-
-    /**
-     * 单独捕捉Shiro(UnauthenticatedException)异常
-     * 该异常为以游客身份访问有权限管控的请求无法对匿名主体进行授权，而授权失败所抛出的异常
-     * @param e
-     * @return
-     */
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(UnauthenticatedException.class)
-    public ResponseBean handle401(UnauthenticatedException e) {
-        return new ResponseBean(HttpStatus.UNAUTHORIZED.value(), "无权访问(Unauthorized):当前Subject是匿名Subject，请先登录(This subject is anonymous.)", null);
-    }
-
-    /**
-     * 捕捉UnauthorizedException自定义异常
-     * @return
-     */
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(CustomUnauthorizedException.class)
-    public ResponseBean handle401(CustomUnauthorizedException e) {
-        return new ResponseBean(HttpStatus.UNAUTHORIZED.value(), "无权访问(Unauthorized):" + e.getMessage(), null);
     }
 
     /**
@@ -95,16 +67,6 @@ public class ExceptionAdvice {
         List<FieldError> fieldErrors = e.getBindingResult().getFieldErrors();
         Map<String, Object> result = this.getValidError(fieldErrors);
         return new ResponseBean(HttpStatus.BAD_REQUEST.value(), result.get("errorMsg").toString(), result.get("errorList"));
-    }
-
-    /**
-     * 捕捉其他所有自定义异常
-     * @return
-     */
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(CustomException.class)
-    public ResponseBean handle(CustomException e) {
-        return new ResponseBean(HttpStatus.BAD_REQUEST.value(), e.getMessage(), null);
     }
 
     /**

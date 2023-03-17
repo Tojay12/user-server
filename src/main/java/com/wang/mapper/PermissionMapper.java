@@ -1,9 +1,8 @@
 package com.wang.mapper;
 
-import com.wang.model.PermissionDto;
-import com.wang.model.RoleDto;
-import tk.mybatis.mapper.common.Mapper;
-
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.wang.model.entity.Permission;
+import com.wang.model.entity.Role;
 import java.util.List;
 
 /**
@@ -11,7 +10,7 @@ import java.util.List;
  * @author jyw
  * @date 2018/8/31 14:42
  */
-public interface PermissionMapper extends Mapper<PermissionDto> {
+public interface PermissionMapper extends BaseMapper<Permission> {
     /**
      * 根据Role查询Permission
      * @param roleDto
@@ -19,5 +18,12 @@ public interface PermissionMapper extends Mapper<PermissionDto> {
      * @author jyw
      * @date 2018/8/31 11:30
      */
-    List<PermissionDto> findPermissionByRole(RoleDto roleDto);
+    List<Permission> findPermissionByRole(Role roleDto);
+
+    /**
+     * 按用户ID查询权限*
+     * @param userId 用户id
+     * @return
+     */
+    List<String> selectByUserIdQueryPermission(Integer userId);
 }
