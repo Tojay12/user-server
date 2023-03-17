@@ -1,12 +1,12 @@
 package com.wang.mapper;
 
-import com.wang.model.UserRoleDto;
-import tk.mybatis.mapper.common.Mapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.wang.model.entity.UserRole;
 
 /**
  * UserRoleMapper
  * @author jyw
  * @date 2018/8/31 14:43
  */
-public interface UserRoleMapper extends Mapper<UserRoleDto> {
+public interface UserRoleMapper extends BaseMapper<UserRole> {
 }

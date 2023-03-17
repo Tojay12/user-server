@@ -1,9 +1,8 @@
 package com.wang.mapper;
 
-import com.wang.model.RoleDto;
-import com.wang.model.UserDto;
-import tk.mybatis.mapper.common.Mapper;
-
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.wang.model.entity.Role;
+import com.wang.model.entity.User;
 import java.util.List;
 
 /**
@@ -11,7 +10,7 @@ import java.util.List;
  * @author jyw
  * @date 2018/8/31 14:42
  */
-public interface RoleMapper extends Mapper<RoleDto> {
+public interface RoleMapper extends BaseMapper<Role> {
     /**
      * 根据User查询Role
      * @param userDto
@@ -19,5 +18,5 @@ public interface RoleMapper extends Mapper<RoleDto> {
      * @author jyw
      * @date 2018/8/31 11:30
      */
-    List<RoleDto> findRoleByUser(UserDto userDto);
+    List<Role> findRoleByUser(User userDto);
 }

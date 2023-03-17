@@ -21,7 +21,8 @@ CREATE TABLE role (
 CREATE TABLE permission (
   id int primary key auto_increment COMMENT "ID",
   name varchar(128) COMMENT '资源名称',
-  per_code varchar(128) not null unique COMMENT '权限代码字符串'
+  per_code varchar(128) not null unique COMMENT '权限代码字符串',
+  `url` varchar(128) not null unique COMMENT '访问url'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT "资源表";
 
 CREATE TABLE user_role (
