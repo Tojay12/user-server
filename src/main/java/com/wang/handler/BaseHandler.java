@@ -2,8 +2,8 @@ package com.wang.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.wang.authentication.CacheConstants;
-import com.wang.config.security.ResultTool;
 import com.wang.enums.ResultCode;
+import com.wang.model.common.ResponseBean;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
@@ -21,7 +21,7 @@ public class BaseHandler {
         servletResponse.setContentType("application/json; charset=utf-8");
         servletResponse.setCharacterEncoding("UTF-8");
         OutputStream out = servletResponse.getOutputStream();
-        out.write(JSON.toJSONString(ResultTool.fail(ResultCode.UNAUTHORIZED,msg)).getBytes(StandardCharsets.UTF_8));
+        out.write(JSON.toJSONString(ResponseBean.failMsg(ResultCode.UNAUTHORIZED,msg)).getBytes(StandardCharsets.UTF_8));
         out.flush();
     }
     /**

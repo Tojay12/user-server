@@ -19,7 +19,7 @@ public class LoginFromUser {
   /**
    * 登录用户名
    */
-  private String account;
+  private String username;
 
   /**
    * 登录密码

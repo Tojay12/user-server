@@ -1,5 +1,7 @@
 package com.wang.model.common;
 
+import com.wang.enums.ResultCode;
+
 /**
  * ResponseBean
  *
@@ -31,6 +33,10 @@ public class ResponseBean {
 
   public static ResponseBean failMsg(String msg) {
     return new ResponseBean(500, msg, null);
+  }
+  
+  public static ResponseBean failMsg(ResultCode resultEnum, String msg) {
+    return new ResponseBean(resultEnum.getCode(), msg, null);
   }
 
   public Integer getCode() {

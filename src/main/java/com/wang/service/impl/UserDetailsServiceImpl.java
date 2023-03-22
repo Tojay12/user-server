@@ -39,7 +39,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     if (StringUtils.isEmpty(username)) {
-      log.info("用户名或者密码错误!", username);
+      log.info("当前登录用户:{} ,用户名或者密码错误!", username);
       throw new CustomException(StatusCode.WrongAccountOrPassword.getMsg());
     }
     //根据用户名查询用户
@@ -55,7 +55,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
       log.info("登录用户：{} 未绑定角色", username);
       throw new CustomException("用户未绑定角色，登录失败", StatusCode.USER_ACCOUNT_DISABLE.getCode());
     }
-
     Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
     //获取该用户所拥有的权限
     List<String> checkPermissions = permissionMapper.selectByUserIdQueryPermission(loginUser.getId());

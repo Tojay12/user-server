@@ -1,5 +1,7 @@
 package com.wang.handler;
 
+import com.wang.enums.StatusCode;
+import com.wang.exception.CustomException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,7 +32,11 @@ public class CustomPasswordEncoder implements PasswordEncoder {
             return false;
         }
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder.matches(rawPassword,encodedPassword);
+        boolean matches = bCryptPasswordEncoder.matches(rawPassword, encodedPassword);
+        if (!matches) {
+            throw new CustomException(StatusCode.WrongAccountOrPassword.getMsg());
+        }
+        return matches;
     }
 
 

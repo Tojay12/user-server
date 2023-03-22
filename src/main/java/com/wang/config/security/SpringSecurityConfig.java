@@ -30,25 +30,21 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
   /**
    * 自定义用户认证逻辑
    */
-
   private final UserDetailsService userDetailsService;
 
   /**
    * 认证失败处理类
    */
-
   private final AuthenticationEntryPointImpl unauthorizedHandler;
 
   /**
    * 退出处理类
    */
-
   private final LogoutSuccessHandlerImpl logoutSuccessHandler;
 
   /**
    * token认证过滤器
    */
-
   private final JwtAuthenticationTokenFilter authenticationTokenFilter;
 
   private final CorsFilter corsFilter;
@@ -100,7 +96,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         // 过滤请求
         .authorizeRequests()
         // 对于登录login 允许匿名访问
-        .antMatchers("/user/login", "/code").anonymous()
+        .antMatchers("/api/user/login", "/code").anonymous()
         // 静态资源，可匿名访问
         .antMatchers(HttpMethod.GET, "/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/profile/**").permitAll()
         .antMatchers("/swagger-ui.html", "/swagger-resources/**", "/webjars/**", "/*/api-docs", "/druid/**").permitAll()

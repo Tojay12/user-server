@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -55,9 +54,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 //    checkVerifyCodeService.remove(new LambdaQueryWrapper<CheckVerifyCode>().eq(CheckVerifyCode::getUuid, user.getUuid()));
 
     // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
-    String encode = new BCryptPasswordEncoder().encode(login.getPassword());
     Authentication authentication = authenticationManager
-        .authenticate(new UsernamePasswordAuthenticationToken(login.getAccount(),login.getPassword()));
+        .authenticate(new UsernamePasswordAuthenticationToken(login.getUsername(),login.getPassword()));
     User loginUser = (User) authentication.getPrincipal();
     if (ObjectUtils.isEmpty(loginUser)) {
       log.warn("用户名或密码错误!");

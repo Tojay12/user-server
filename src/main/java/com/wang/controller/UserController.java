@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "用户管理")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 @PropertySource("classpath:config.properties")
 public class UserController {
     
@@ -38,6 +38,18 @@ public class UserController {
      */
     @PostMapping("/login")
     public ResponseBean login(@Validated(UserLoginValidGroup.class) @RequestBody LoginFromUser loginFromUser) {
+        return this.userService.login(loginFromUser);
+    }
+    
+    
+    /**
+     * 获取瀛湖信息
+     * @param loginFromUser 登录用户参数
+     * @author jyw
+     * @date 2018/8/30 16:21
+     */
+    @PostMapping("/info")
+    public ResponseBean info(@Validated(UserLoginValidGroup.class) @RequestBody LoginFromUser loginFromUser) {
         return this.userService.login(loginFromUser);
     }
 
